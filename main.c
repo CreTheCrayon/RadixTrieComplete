@@ -1,3 +1,27 @@
+/*
+ * main.c
+ *
+ * A simple, text-based interface to a radix trie. Commands are as follows:
+ *
+ * i <word>  -- insert word into trie
+ * s <word>  -- search for word in trie
+ * e        -- empty the trie
+ * n        -- prints number of nodes in Trie
+ * w        -- prints number of words in trie
+ * p        -- prints all words in trie in lexicographical order
+ * q        -- quit the program
+ *
+ * To Compile:
+ *      make
+ *
+ * To Run:
+ *      make run
+ *
+ * To Clean:
+ *      make clean
+ * Written by Christian Rondeau - April 2021
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

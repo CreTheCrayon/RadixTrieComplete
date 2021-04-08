@@ -59,6 +59,7 @@ void insert(char sWord[], struct node *root, struct node *counter) {
     int length = 0;
     while (sWord[length] != '\0') length++;
 
+    //Lines 63-83 are basically search
     struct node * currNode = root;
     int isPresent = 1;
     int g = 0;
@@ -169,7 +170,7 @@ void insert(char sWord[], struct node *root, struct node *counter) {
         if (isPresent == 0) {
             //if word is not finished, then currNode should not be marked a word
             currNode->wordEnd = 0;
-            //add additional child node to new node
+            //add additional child node to node
             struct node * newChild = calloc(1, sizeof(struct node));
             counter->nodeCount++;
             int index2 = 0;
@@ -188,14 +189,17 @@ void insert(char sWord[], struct node *root, struct node *counter) {
 
 void emptyTree(struct node *currNode, struct node *root) {
 
+    //if we hit dead end, go back up tree
     if (currNode == NULL) {
         return;
     }
 
+    //look thru children of node
     for (int i = 0; i < 26; i++) {
         emptyTree(currNode->children[i], root);
     }
 
+    //if node is root, we dont want to free it here, bc program might not be done
     if (currNode == root) {
         memset(root->strEdge, '\0', 35*sizeof(char));
         memset(root->children, 0, 26*sizeof(struct node *));
@@ -216,7 +220,7 @@ void printWords(struct node *currNode, char currWord[]) {
     int length = 0;
     while (currWord[length] != '\0') length++;
 
-    //add to currWord
+    //add edge to currWord
     int i = 0;
     while (currNode->strEdge[i] != '\0') {
         currWord[length+i] = currNode->strEdge[i];
@@ -233,7 +237,7 @@ void printWords(struct node *currNode, char currWord[]) {
         printWords(currNode->children[i], currWord);
     }
 
-    //remove currNode->strEdge from currWord
+    //remove edge from currWord before traveling back up the tree
     i = 0;
     while (currNode->strEdge[i] != '\0') {
         currWord[length-(i+1)] = '\0';
